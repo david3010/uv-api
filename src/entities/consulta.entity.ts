@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { User } from './user.entity';
 
 export enum Grado {
     BAJO = "bajo",
@@ -26,5 +27,8 @@ export class ConsultaUV {
     date: Date;
 
     @Column()
-    user_id:number
+    user_id:number;
+
+    @ManyToOne(type => User, user => user.consultas)
+    user: User;
 }

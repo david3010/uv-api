@@ -9,6 +9,9 @@ import { UsuariosModule } from './usuarios/usuarios.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
 import { JwtService } from '@nestjs/jwt';
+import { ConsultasController } from './consultas/consultas.controller';
+import { ConsultasService } from './consultas/consultas.service';
+import { ConsultasModule } from './consultas/consultas.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -20,9 +23,9 @@ import { JwtService } from '@nestjs/jwt';
     database: 'u739213988_nestjs',
     entities: [User, ConsultaUV],
     synchronize: true,
-  }), UsuariosModule, AuthModule,
+  }), UsuariosModule, AuthModule, ConsultasModule,
   ],
-  controllers: [AppController],
-  providers: [UsuariosService, AuthService],
+  controllers: [AppController, ConsultasController],
+  providers: [UsuariosService, AuthService, ConsultasService],
 })
 export class AppModule { }

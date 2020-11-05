@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, 
 import { UsuariosService } from './usuarios.service';
 import { CreateUserDto } from '../dto/user.dto';
 import { User } from 'src/entities/user.entity';
-import { JwtService } from '@nestjs/jwt';
+import { ConsultasService } from '../consultas/consultas.service';
 const bcrypt = require('bcryptjs');
 
 @Controller('usuarios')
@@ -56,6 +56,11 @@ export class UsuariosController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usuariosService.findOne(id);
+  }
+
+  @Get(':id/details')
+  findOneWithDetails(@Param('id') id: number) {
+    return this.usuariosService.findOneWithDetails(id);
   }
 
   @Put(':id')

@@ -2,13 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/entities/user.entity';
+import { ConsultaUV } from 'src/entities/consulta.entity';
 
 @Injectable()
 export class UsuariosService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-  ) {}
+  ) { }
 
   findAll(): Promise<User[]> {
     return this.usersRepository.find();
@@ -18,7 +19,14 @@ export class UsuariosService {
     return await this.usersRepository.findOne(id);
   }
 
-  async findByEmail(email: string){
+  async findOneWithDetails(id: number):Promise<User> {
+    return await this.usersRepository.createQueryBuilder("user")
+    .leftJoinAndSelect("user.consultas","consulta_uv")
+    .where("user.id = :id", { id: id })
+    .getOne();
+  }
+
+  async findByEmail(email: string) {
     return await this.usersRepository.findOne({ email });
   }
 

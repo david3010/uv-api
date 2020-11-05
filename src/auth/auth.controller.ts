@@ -14,6 +14,7 @@ export class AuthController {
         if (userdb) {
             return res.status(404).json({
                 ok: true,
+                userid: userdb.id,
                 token: accestoken,
                 msg: 'Ok!'
             });
