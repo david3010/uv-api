@@ -12,7 +12,7 @@ export class AuthController {
         const userdb = await this.authService.validateUser(email, password);
         const accestoken =  (await this.authService.login(user)).access_token;
         if (userdb) {
-            return res.status(404).json({
+            return res.status(200).json({
                 ok: true,
                 userid: userdb.id,
                 token: accestoken,
